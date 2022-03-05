@@ -24,15 +24,8 @@ public class EmployeeServiceClient {
 		
 		try {
 			// 직원 엔터티 생성
-			Employee employee = new Employee();
-			employee.setId(2L);
-			employee.setName("둘리");
-			employee.setMailId("gurum");
-			employee.setStartDate(new Date());
-			employee.setTitle("과장");
-			employee.setDeptName("총무부");
-			employee.setSalary(2500.00);
-			employee.setCommissionPct(12.50);
+			Employee employee = new Employee(1L, "둘리", "gurum", new Date(),
+					"과장", "총무부", 2500.00, 12.50, null, null);
 			
 			// 트랜잭션 시작
 			tx.begin();
@@ -42,6 +35,10 @@ public class EmployeeServiceClient {
 			
 			// 트랜잭션 종료
 			tx.commit();
+			
+			Employee findEmployee = em.find(Employee.class, 1L);
+			System.out.println("검색한 회원 정보");
+			System.out.println(findEmployee.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
