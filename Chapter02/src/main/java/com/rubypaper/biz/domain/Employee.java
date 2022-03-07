@@ -6,6 +6,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,18 +17,24 @@ import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"searchCondition", "searchKeyword" })
 @Entity
+@Setter
+@Getter
 @Table(name="S_EMP",
 		uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME", "MAILID"})})
 @Access(AccessType.FIELD)
 public class Employee {
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(length = 7, nullable = false)
 	private Long id;
 	

@@ -24,15 +24,27 @@ public class EmployeeServiceClient {
 		
 		try {
 			// 직원 엔터티 생성
-			Employee employee = new Employee(1L, "둘리", "gurum", new Date(),
-					"과장", "총무부", 2500.00, 12.50, null, null);
+			Employee employee = new Employee();
+			employee.setName("둘리");
+			employee.setMailId("gurum");
+			employee.setStartDate(new Date());
+			employee.setTitle("과장");
+			employee.setDeptName("총무부");
+			employee.setSalary(2500.00);
+			employee.setCommissionPct(12.50);
 			
 			// 트랜잭션 시작
 			tx.begin();
+			System.out.println("등록 전 id : " + employee.getId());
 			
 			// 직원 등록 처리
 			em.persist(employee);
+			for (int i=0 ;i <30; i++) {
+				Thread.sleep(100);
+				System.out.println("zzz...");
+			}
 			
+			System.out.println("등록 후 id : " + employee.getId());
 			// 트랜잭션 종료
 			tx.commit();
 			
