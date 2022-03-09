@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -26,44 +27,20 @@ import lombok.ToString;
 @Data
 @Entity
 @Table(name="S_EMP")
-@SequenceGenerator(name = "S_EMP_GENERATOR",
-				sequenceName = "S_EMP_SEQUENCE",
-				initialValue = 1,
-				allocationSize = 50)
+@TableGenerator(name = "SEQ_GENERATOR",
+				table = "SHOPPING_SEQUENCES",
+				pkColumnName = "SEQ_NAME",
+				pkColumnValue = "EMP_SEQ",
+				valueColumnName = "NEXT_VALUE",
+				initialValue = 0,
+				allocationSize = 1)
 public class Employee {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-					generator = "S_EMP_GENERATOR")
+	@GeneratedValue(strategy = GenerationType.TABLE,
+					generator = "SEQ_GENERATOR")
 	@Column(length = 7, nullable = false)
 	private Long id;
 	
-	@Column(length = 25, nullable = false)
 	private String name;
-	
-	@Column(length = 8, unique = true)
-	private String mailId;
-	
-	@Column(name="START_DATE")
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
-	
-	@Column(length = 25)
-	private String title;
-	
-	@Column(name="DEPT_NAME", length = 30)
-	private String deptName;
-	
-	@Column(precision = 11, scale = 2)
-	private Double salary;
-
-	@Column(name="COMMISSION_PCT", precision = 4, scale = 2,
-			columnDefinition = "double CHECK (commission_pct IN (10, 12.5, 15, 17.5, 20))")
-	private Double commissionPct;
-	
-	@Transient
-	private String searchCondition;
-	
-	@Transient
-	private String searchKeyword;
 }

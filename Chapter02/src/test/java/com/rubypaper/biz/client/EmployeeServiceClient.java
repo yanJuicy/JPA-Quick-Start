@@ -26,11 +26,9 @@ public class EmployeeServiceClient {
 			// 트랜잭션 시작
 			tx.begin();
 			
-			for (int i=1; i<=100; i++) {
-				Employee employee = new Employee();
-				employee.setName("직원 - " + i);
-				em.persist(employee);
-			}
+			Employee employee = new Employee();
+			employee.setName("둘리");
+			em.persist(employee);
 			
 			// 트랜잭션 종료
 			tx.commit();
