@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,19 +23,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(exclude = {"searchCondition", "searchKeyword" })
+@Data
 @Entity
-@Setter
-@Getter
-@Table(name="S_EMP",
-		uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME", "MAILID"})})
-@Access(AccessType.FIELD)
+@Table(name="S_EMP")
+@SequenceGenerator(name = "S_EMP_GENERATOR",
+				sequenceName = "S_EMP_SEQUENCE",
+				initialValue = 1,
+				allocationSize = 50)
 public class Employee {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+					generator = "S_EMP_GENERATOR")
 	@Column(length = 7, nullable = false)
 	private Long id;
 	
