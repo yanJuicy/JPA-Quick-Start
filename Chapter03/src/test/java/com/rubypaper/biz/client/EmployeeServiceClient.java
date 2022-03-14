@@ -12,7 +12,7 @@ public class EmployeeServiceClient {
 	public static void main(String[] args) {
 		// 엔터티 매니저 팩토리 생성
 		EntityManagerFactory emf =
-				Persistence.createEntityManagerFactory("Chapter02");
+				Persistence.createEntityManagerFactory("Chapter03");
 		
 		// 엔터티 매니저 생성
 		EntityManager em = emf.createEntityManager();
@@ -21,11 +21,22 @@ public class EmployeeServiceClient {
 		EntityTransaction tx = em.getTransaction();
 		
 		try {
-			// 직원 엔터티 생성 및 초기화
-			Employee employee = new Employee();
-			employee.setName("둘리");
+//			// 직원 엔터티 생성 및 초기화
+//			Employee employee = new Employee();
+//			employee.setName("둘리");
+//			
+//			tx.begin();
+//			
+//			em.persist(employee);
+//		
+//			tx.commit();
+			
+			Employee findEmp = em.find(Employee.class, 1L);
+			System.out.println("검색된 직원 정보: " + findEmp.toString());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			tx.rollback();
 		} finally {
 			// 엔터티 매니저 및 엔터티 매니저 팩토리 종료
 			em.close();
