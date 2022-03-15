@@ -21,18 +21,29 @@ public class EmployeeServiceClient {
 		EntityTransaction tx = em.getTransaction();
 		
 		try {
-//			// 직원 엔터티 생성 및 초기화
-//			Employee employee = new Employee();
-//			employee.setName("둘리");
-//			
-//			tx.begin();
-//			
-//			em.persist(employee);
-//		
-//			tx.commit();
+			// 직원 엔터티 생성 및 초기화
+			Employee employee = new Employee();
+			employee.setName("둘리");
 			
-			Employee findEmp = em.find(Employee.class, 1L);
-			System.out.println("검색된 직원 정보: " + findEmp.toString());
+			tx.begin();
+			
+			em.persist(employee);
+			
+			if (em.contains(employee)) {
+				System.out.println(employee.toString() + " MANAGED");
+			}
+			
+			em.detach(employee);
+			
+			if (!em.contains(employee)) {
+				System.out.println(employee.toString() + " DETACHED");
+			}
+			
+			employee.setName("이름 수정");
+		
+			tx.commit();
+			
+			System.out.println("최종 직원 정보: " + employee.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
