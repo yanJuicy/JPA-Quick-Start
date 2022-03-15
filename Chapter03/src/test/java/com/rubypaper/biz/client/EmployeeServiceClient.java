@@ -29,17 +29,7 @@ public class EmployeeServiceClient {
 			
 			em.persist(employee);
 			
-			if (em.contains(employee)) {
-				System.out.println(employee.toString() + " MANAGED");
-			}
-			
-			em.detach(employee);
-			
-			if (!em.contains(employee)) {
-				System.out.println(employee.toString() + " DETACHED");
-			}
-			
-			employee.setName("이름 수정");
+			em.remove(employee);
 		
 			tx.commit();
 			
