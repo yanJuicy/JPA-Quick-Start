@@ -1,8 +1,8 @@
 package com.rubypaper.biz.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,8 +14,10 @@ import lombok.Data;
 public class Employee {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
+	@Column(length=7, nullable = false)
 	private Long id;
 	
+	@Column(length = 25, nullable = false)
 	private String name;
 }

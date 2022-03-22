@@ -10,14 +10,10 @@ import com.rubypaper.biz.domain.Employee;
 public class EmployeeServiceClient {
 
 	public static void main(String[] args) {
-		// 엔터티 매니저 팩토리 생성
+
 		EntityManagerFactory emf =
 				Persistence.createEntityManagerFactory("Chapter03");
-		
-		// 엔터티 매니저 생성
 		EntityManager em = emf.createEntityManager();
-		
-		// 엔터티 트랜잭션 생성
 		EntityTransaction tx = em.getTransaction();
 		
 		try {
@@ -26,15 +22,17 @@ public class EmployeeServiceClient {
 			employee.setName("둘리");
 			
 			tx.begin();
-			
 			em.persist(employee);
-			
-			em.remove(employee);
-		
 			tx.commit();
 			
-			System.out.println("최종 직원 정보: " + employee.toString());
+			for (int i=0; i<30; i++) {
+				Thread.sleep(1000);
+				System.out.println("다른 사용자가 데이터 수정중... " + i);
+			}
 			
+			em.refresh(employee);
+			System.out.println("갱신된 직원 정보 : " + employee.toString());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
